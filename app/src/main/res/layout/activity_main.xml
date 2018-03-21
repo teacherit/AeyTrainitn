@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context="teacherit.mbac.ac.th.aeytraining.MainActivity">
 
+    <!--Wallpaper-->
+           <ImageView
+               android:scaleType="centerCrop"
+               android:src="@drawable/bg5"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent" />
    <!--Content of fragment-->
            <FrameLayout
                android:id="@+id/contentMainFragment"
