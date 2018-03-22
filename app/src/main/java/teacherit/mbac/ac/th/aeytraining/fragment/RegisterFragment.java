@@ -5,15 +5,20 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.transition.ChangeBounds;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.jar.JarEntry;
+
 import teacherit.mbac.ac.th.aeytraining.MainActivity;
 import teacherit.mbac.ac.th.aeytraining.R;
 import teacherit.mbac.ac.th.aeytraining.utility.MyAlert;
+import teacherit.mbac.ac.th.aeytraining.utility.MyConstant;
+import teacherit.mbac.ac.th.aeytraining.utility.PostUserToServer;
 
 /**
  * Created by It9 on 21/3/
@@ -41,7 +46,7 @@ public class RegisterFragment extends Fragment{
             public void onClick(View view) {
 //               Get value From Edit Text
                 EditText nameEditText = getView().findViewById(R.id.edtName);
-                EditText userEditText = getView().findViewById(R.id.edtPassword);
+                EditText userEditText = getView().findViewById(R.id.edtUser);
                 EditText passwordEditText = getView().findViewById(R.id.edtPassword);
 //                Change EditText to String
                 nameString = nameEditText.getText().toString().trim();
@@ -57,8 +62,41 @@ public class RegisterFragment extends Fragment{
 
                 } else
                     {
-
 //                      No Space
+//                        Send to server
+                        try {
+                            // Call Constant
+                            MyConstant myConstant = new MyConstant();
+                            //Tread
+                            PostUserToServer postUserToServer = new PostUserToServer(getActivity());
+                            postUserToServer.execute(nameString, userString, passwordString,
+                                    myConstant.getUrlPostUserString());
+                            String result = postUserToServer.get();
+                            Log.d("22March2018","Result ==>" +result);
+                           //Change char to Boolean
+                            if(Boolean.parseBoolean(result))
+                            {
+
+                                getActivity().getSupportFragmentManager().popBackStack();
+
+                            }
+                            else
+                            {
+                                MyAlert myAlert = new MyAlert(getActivity());
+                                myAlert.myDialog("Cannot Post User",
+                                        "Please Try Again");
+
+
+                            }
+
+                        }
+                        catch (Exception e)
+                        {
+                            e.printStackTrace();
+
+                        }
+
+
                 }
 
             }
