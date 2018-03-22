@@ -36,9 +36,24 @@ public class MainFragment extends Fragment
             registerController();
               // Login Controller
             loginController();
+           // test();
+
 
 
         }   // Main Method
+
+        private void test() {
+            final String[] loginStrings = new String[]{"9", "mbac", "teacher", "123456"};
+Button button = getView().findViewById(R.id.btnLogin);
+button.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Toast.makeText(getActivity(), "Welcome" +loginStrings[1],
+                Toast.LENGTH_SHORT).show();
+
+    }
+});
+        }
 
         private void loginController() {
             Button button = getView().findViewById(R.id.btnLogin);
@@ -71,50 +86,58 @@ public class MainFragment extends Fragment
                             String[] loginStrings = new String[columnUserStrings.length];
                             boolean statusBool = true;
                             JSONArray jsonArray = new JSONArray(jsonString);
+
                             for (int i=0;i<jsonArray.length();i+=1)
                             {
                               JSONObject jsonObject = jsonArray.getJSONObject(i);
+
                               if(userString.equals(jsonObject.getString(columnUserStrings[2])))
                               {
-                                  statusBool = false;
-                                  for (int i1=0;i1<columnUserStrings.length;i1+=1)
-                                  {
-                                      loginStrings[i] = jsonObject.getString(columnUserStrings[i1]);
-                                      Log.d("22March2018", "loginString[" + i1 + "] ==>" +loginStrings[i1]);
+//                                  statusBool = false;
+//                                  for (int i1=0;i1<columnUserStrings.length;i1+=1)
+//                                  {
+//                                      loginStrings[i] = jsonObject.getString(columnUserStrings[i1]);
+//                                     // Log.d("22MarchV1", "loginString[" + i1 + "] ==>" +loginStrings[i1]);
+//
+//                                  } //for2
+                              } //if1
 
-                                  }
-                              }
-                              if (statusBool)
-                              {
+                            }   //for1
+
+
+                            if (statusBool)
+                            {
 //                                  User False
-                                  MyAlert myAlert = new MyAlert(getActivity());
-                                  myAlert.myDialog("User False",
-                                "No this user in Mysql");
+                                MyAlert myAlert = new MyAlert(getActivity());
+                                myAlert.myDialog("User False",
+                                        "No this user in Mysql");
                             }
-                              else if(passwordString.equals(loginStrings[3]))
-                             {
-                                 //  Password True
+//                            else if(passwordString.equals(loginStrings[3]))
+//                            {
+//                                //  Password True
+//
+//                                Toast.makeText(getActivity(), "Welcome" + loginStrings[1],
+//                                        Toast.LENGTH_SHORT).show();
+//
+//                            }
+//                            else
+//                            {
+//                                //Password False
+//                                MyAlert myAlert = new MyAlert(getActivity());
+//                                myAlert.myDialog("Password False",
+//                                        "Please try again password false");
+//
+//
+//                            }
 
-                                 Toast.makeText(getActivity(), "Welcome" + loginStrings[1],
-                                       Toast.LENGTH_SHORT).show();
+                            Log.d("22MarchV1", "passwordSting ==> " + passwordString);
+                            Log.d("22MarchV1", "passwordSting Data ==> " + loginStrings[3]);
 
-                              }
-                              else
-                              {
-                                  //Password False
-                                  MyAlert myAlert = new MyAlert(getActivity());
-                                  myAlert.myDialog("Password False",
-                                          "Please try again password false");
-
-
-                              }
-
-                            }
 
                         }
                         catch (Exception e)
                         {
-                            e.printStackTrace();
+                            Log.d("22MarchV1", "e ==> " + e.toString());
                         }
 
                     }
